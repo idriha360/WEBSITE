@@ -16,7 +16,7 @@ export const fullTeam = [
   { 
     name: 'Hajar AIT MERRI', 
     role: 'Secretaire Generale', 
-    imgSrc: '/AECHA/3.jpg',
+    imgSrc: 'AECHA/3.jpg',
     type: 'bureau',
     quote: "L'organisation est la clé de notre réussite collective."
   },

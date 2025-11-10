@@ -23,14 +23,14 @@ export const fullTeam = [
   { 
     name: 'Mohamed BAALA', 
     role: 'Tresorier', 
-    imgSrc: '/AECHA/4.jpg',
+    imgSrc: 'AECHA/4.jpg',
     type: 'bureau',
     quote: "Une gestion transparente pour une confiance durable."
   },
   { 
     name: 'Haithem CHOUARI', 
     role: 'Vice-Tresorier', 
-    imgSrc: '/AECHA/5.jpg',
+    imgSrc: 'AECHA/5.jpg',
     type: 'bureau',
     quote: "Chaque ressource compte et sera utilisée pour vous."
   },
@@ -55,7 +55,7 @@ export const fullTeam = [
   { 
     name: 'Zouhair FAKRANI', 
     role: 'Responsable Restauration', 
-    imgSrc: '/AECHA/9.jpg',
+    imgSrc: 'AECHA/9.jpg',
     type: 'committee',
   },
   { 
@@ -67,7 +67,7 @@ export const fullTeam = [
   { 
     name: 'Anas AIT BOUDOUN', 
     role: 'Responsable Sport', 
-    imgSrc: '/AECHA/11.jpg',
+    imgSrc: 'AECHA/11.jpg',
     type: 'committee',
   },
 ];

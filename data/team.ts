@@ -16,21 +16,21 @@ export const fullTeam = [
   { 
     name: 'Hajar AIT MERRI', 
     role: 'Secretaire Generale', 
-    imgSrc: 'https://picsum.photos/seed/hajar/200',
+    imgSrc: '/workspaces/WEBSITE/AECHA/3.jpg',
     type: 'bureau',
     quote: "L'organisation est la clé de notre réussite collective."
   },
   { 
     name: 'Mohamed BAALA', 
     role: 'Tresorier', 
-    imgSrc: 'https://picsum.photos/seed/baala/200',
+    imgSrc: '/workspaces/WEBSITE/AECHA/4.jpg',
     type: 'bureau',
     quote: "Une gestion transparente pour une confiance durable."
   },
   { 
     name: 'Haithem CHOUARI', 
     role: 'Vice-Tresorier', 
-    imgSrc: 'https://picsum.photos/seed/haithem/200',
+    imgSrc: '/workspaces/WEBSITE/AECHA/5.jpg',
     type: 'bureau',
     quote: "Chaque ressource compte et sera utilisée pour vous."
   },
@@ -55,7 +55,7 @@ export const fullTeam = [
   { 
     name: 'Zouhair FAKRANI', 
     role: 'Responsable Restauration', 
-    imgSrc: 'https://picsum.photos/seed/zouhair/200',
+    imgSrc: '/workspaces/WEBSITE/AECHA/9.jpg',
     type: 'committee',
   },
   { 
@@ -67,7 +67,7 @@ export const fullTeam = [
   { 
     name: 'Anas AIT BOUDOUN', 
     role: 'Responsable Sport', 
-    imgSrc: 'https://picsum.photos/seed/anas/200',
+    imgSrc: '/workspaces/WEBSITE/AECHA/11.jpg',
     type: 'committee',
   },
 ];

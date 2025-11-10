@@ -7,5 +7,5 @@ export default defineConfig({
   plugins: [react()],
   // Using './' makes the deployment work on any repository name 
   // without needing to manually update this file.
-  base: './', 
+  base: '/WEBSITE/', 
 })

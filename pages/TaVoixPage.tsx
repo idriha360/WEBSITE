@@ -1,6 +1,10 @@
+
 import React, { useState } from 'react';
 import { Language } from '../App';
 import { FormationIcon, RestaurantIcon, InternatIcon, SportIcon, CultureIcon, AnnexesIcon, SuggestionIcon, YourVoiceIcon } from '../components/Icons';
+
+// URL de soumission Formspark fournie
+const FORMSPARK_URL = "https://submit-form.com/aifSKXhgc";
 
 const translations = {
   fr: {
@@ -13,22 +17,14 @@ const translations = {
     filierePlaceholder: "Choisis ta filière...",
     subjectPlaceholder: "Ex: Problème WiFi Pavillon B",
     messagePlaceholder: "Sois précis et constructif pour nous aider à agir vite.",
-    attachPhoto: "📎 Joindre une photo",
+    attachPhoto: "📎 Joindre une photo (Optionnel)",
     anonymousOption: "Rester 100% Anonyme",
-    anonymousHelp: "Tu recevras un code de suivi unique à la fin.",
+    anonymousHelp: "Nous ne saurons pas qui tu es.",
     emailOption: "Recevoir une réponse par email",
     submitButton: "🌱 Soumettre ma demande",
-    successTitle: "Ta demande a été plantée !",
-    successText: "Reçu ! Ton code de suivi est :",
-    successInfo: "Conserve-le précieusement. Tu peux suivre l'avancée de ta demande ci-dessous.",
     trackerTitle: "Suivre ma demande",
     trackerPlaceholder: "Entrer un code de suivi...",
     trackerButton: "Voir le statut",
-    statusReceived: "Notre équipe a bien reçu ton message.",
-    statusAssigned: "Le comité compétent étudie le problème.",
-    statusInProgress: "Une action est en cours.",
-    statusResolved: "Action prise et problème résolu.",
-    statusClosed: "Message non constructif ou hors de notre champ d'action.",
     emailPlaceholder: "ton.email@example.com",
     categories: {
       Formation: 'Formation', Restaurant: 'Restaurant', Internat: 'Internat', Sport: 'Sport',
@@ -40,13 +36,6 @@ const translations = {
         Technicien: 'Technicien Spécialisé'
     },
     years: ["1 CI", "2 CI", "3 CI"],
-    statuses: {
-      received: '📥 Reçu',
-      assigned: '👀 Assigné',
-      inProgress: '⏳ En cours',
-      resolved: '✅ Résolu',
-      closed: '❌ Classé',
-    }
   },
   ar: {
     title: "صوتك. فعلنا.",
@@ -58,22 +47,14 @@ const translations = {
     filierePlaceholder: "اختر مسلكك...",
     subjectPlaceholder: "مثال: مشكلة الواي فاي في الجناح ب",
     messagePlaceholder: "كن دقيقًا وبناءً لمساعدتنا على التحرك بسرعة.",
-    attachPhoto: "📎 إرفاق صورة",
+    attachPhoto: "📎 إرفاق صورة (اختياري)",
     anonymousOption: "البقاء مجهول الهوية 100٪",
-    anonymousHelp: "ستتلقى رمز تتبع فريد في النهاية.",
+    anonymousHelp: "لن نعرف هويتك.",
     emailOption: "تلقي رد عبر البريد الإلكتروني",
     submitButton: "🌱 إرسال طلبي",
-    successTitle: "تم زرع طلبك!",
-    successText: "تم الاستلام! رمز التتبع الخاص بك هو:",
-    successInfo: "احتفظ به. يمكنك تتبع تقدم طلبك أدناه.",
     trackerTitle: "تتبع طلبي",
     trackerPlaceholder: "أدخل رمز التتبع...",
     trackerButton: "عرض الحالة",
-    statusReceived: "لقد استلم فريقنا رسالتك بنجاح.",
-    statusAssigned: "اللجنة المختصة تدرس المشكلة.",
-    statusInProgress: "الإجراء قيد التنفيذ.",
-    statusResolved: "تم اتخاذ الإجراء وحل المشكلة.",
-    statusClosed: "رسالة غير بناءة أو خارج نطاق عملنا.",
     emailPlaceholder: "email@example.com",
     categories: {
       Formation: 'التكوين', Restaurant: 'المطعم', Internat: 'الداخلية', Sport: 'الرياضة',
@@ -85,13 +66,6 @@ const translations = {
         Technicien: 'تقني متخصص'
     },
     years: ["1 CI", "2 CI", "3 CI"],
-    statuses: {
-      received: '📥 تم الاستلام',
-      assigned: '👀 قيد الدراسة',
-      inProgress: '⏳ قيد التنفيذ',
-      resolved: '✅ تم الحل',
-      closed: '❌ مغلق',
-    }
   }
 };
 
@@ -149,7 +123,7 @@ interface CategoryButtonProps {
 }
 
 const CategoryButton: React.FC<CategoryButtonProps> = ({ Icon, label, onClick, selected }) => (
-    <button onClick={onClick} className={`flex flex-col items-center justify-center text-center p-3 rounded-xl transition-all duration-300 w-full aspect-square ${selected ? 'bg-primary text-white shadow-lg scale-105' : 'bg-bg-primary hover:bg-bg-primary/60'}`}>
+    <button type="button" onClick={onClick} className={`flex flex-col items-center justify-center text-center p-3 rounded-xl transition-all duration-300 w-full aspect-square ${selected ? 'bg-primary text-white shadow-lg scale-105' : 'bg-bg-primary hover:bg-bg-primary/60'}`}>
         <Icon className="w-8 h-8 mb-2"/>
         <span className="text-xs font-semibold">{label}</span>
     </button>
@@ -170,10 +144,6 @@ const TaVoixPage: React.FC<{ language: Language }> = ({ language }) => {
       notification: 'anonymous',
       email: '',
     });
-    const [submitted, setSubmitted] = useState(false);
-    const [trackingCode, setTrackingCode] = useState('');
-    const [trackInput, setTrackInput] = useState('');
-    const [trackedStatus, setTrackedStatus] = useState<{status: string, message: string} | null>(null);
 
     const handleCategorySelect = (category: Category) => {
         setFormData(prev => ({ ...prev, category }));
@@ -192,25 +162,8 @@ const TaVoixPage: React.FC<{ language: Language }> = ({ language }) => {
         setFormData(prev => ({...prev, year, filiere: ''}));
     };
     
-    const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      const code = `AECHA-${Math.random().toString(36).substr(2, 4).toUpperCase()}`;
-      setTrackingCode(code);
-      setSubmitted(true);
-      console.log('Form Data:', formData);
-    };
-
-    const handleTrack = () => {
-        if(!trackInput.toUpperCase().startsWith('AECHA-')) return;
-        const statuses = t.statuses;
-        const statusKeys = Object.keys(statuses) as (keyof typeof statuses)[];
-        const randomStatusKey = statusKeys[Math.floor(Math.random() * statusKeys.length)];
-        const statusText = statuses[randomStatusKey];
-        
-        const randomStatusKeyStr = String(randomStatusKey);
-        const statusMessage = translations[language][`status${randomStatusKeyStr.charAt(0).toUpperCase() + randomStatusKeyStr.slice(1)}` as 'statusReceived' | 'statusAssigned' | 'statusInProgress' | 'statusResolved' | 'statusClosed'];
-        setTrackedStatus({status: statusText, message: statusMessage});
-    };
+    // Note: La soumission est gérée par le formulaire HTML standard vers Formspark.
+    // Pas de preventDefault() ici pour permettre la redirection.
 
     const categories: { key: Category; Icon: React.FC<{className?: string}> }[] = [
       { key: 'Formation', Icon: FormationIcon }, { key: 'Restaurant', Icon: RestaurantIcon },
@@ -245,120 +198,144 @@ const TaVoixPage: React.FC<{ language: Language }> = ({ language }) => {
 
                 <section className="max-w-2xl mx-auto fade-in-up-section">
                     <div className="bg-card p-6 sm:p-8 rounded-[20px] shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
-                        {!submitted ? (
-                            <form onSubmit={handleSubmit}>
-                                {/* Step 1 */}
-                                {step === 1 && (
+                        
+                        {/* 
+                            FORMULAIRE PRINCIPAL 
+                            L'action pointe vers Formspark. La méthode est POST.
+                        */}
+                        <form action={FORMSPARK_URL} method="POST">
+                            
+                            {/* CHAMPS CACHÉS : Pour envoyer les données du State React */}
+                            <input type="hidden" name="categorie" value={formData.category || ''} />
+                            <input type="hidden" name="cycle" value={formData.cycle} />
+                            <input type="hidden" name="annee" value={formData.year} />
+                            <input type="hidden" name="filiere" value={formData.filiere} />
+                            <input type="hidden" name="anonyme" value={formData.notification === 'anonymous' ? 'Oui' : 'Non'} />
+                            
+                            {/* Configuration Formspark : Redirection après succès (Optionnel, sinon page par défaut) */}
+                            {/* <input type="hidden" name="_redirect" value="http://votre-site.com/merci" /> */}
+
+                            {/* Step 1 */}
+                            {step === 1 && (
+                                <div>
+                                    <h3 className="text-xl font-bold text-center mb-6">{t.step1Title}</h3>
+                                    <div className="grid grid-cols-4 gap-2 sm:gap-4 text-text-dark">
+                                        {categories.map(({key, Icon}) => (
+                                            <CategoryButton key={key} Icon={Icon} label={t.categories[key]} onClick={() => handleCategorySelect(key)} selected={formData.category === key} />
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            {/* Step 2 */}
+                            {step === 2 && (
                                     <div>
-                                        <h3 className="text-xl font-bold text-center mb-6">{t.step1Title}</h3>
-                                        <div className="grid grid-cols-4 gap-2 sm:gap-4 text-text-dark">
-                                            {categories.map(({key, Icon}) => (
-                                                <CategoryButton key={key} Icon={Icon} label={t.categories[key]} onClick={() => handleCategorySelect(key)} selected={formData.category === key} />
-                                            ))}
-                                        </div>
+                                    <h3 className="text-xl font-bold text-center mb-6">{t.step2Title}</h3>
+                                    <div className="flex justify-center flex-wrap gap-2 mb-4">
+                                        {(Object.keys(t.cycles) as Cycle[]).map(cycle => (
+                                            <button type="button" key={cycle} onClick={() => handleCycleSelect(cycle)} className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-300 ${formData.cycle === cycle ? 'bg-primary text-white' : 'bg-bg-primary hover:bg-bg-primary/60'}`}>{t.cycles[cycle]}</button>
+                                        ))}
                                     </div>
-                                )}
-                                {/* Step 2 */}
-                                {step === 2 && (
-                                     <div>
-                                        <h3 className="text-xl font-bold text-center mb-6">{t.step2Title}</h3>
-                                        <div className="flex justify-center flex-wrap gap-2 mb-4">
-                                            {(Object.keys(t.cycles) as Cycle[]).map(cycle => (
-                                                <button type="button" key={cycle} onClick={() => handleCycleSelect(cycle)} className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-300 ${formData.cycle === cycle ? 'bg-primary text-white' : 'bg-bg-primary hover:bg-bg-primary/60'}`}>{t.cycles[cycle]}</button>
+
+                                    {formData.cycle === 'Ingenieur' && (
+                                        <div className="flex justify-center gap-2 my-4">
+                                            {t.years.map(year => (
+                                                <button type="button" key={year} onClick={() => handleYearSelect(year)} className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-300 ${formData.year === year ? 'bg-primary text-white' : 'bg-bg-primary hover:bg-bg-primary/60'}`}>{year}</button>
                                             ))}
                                         </div>
+                                    )}
+                                    
+                                    {currentFilieres.length > 0 && (
+                                        <select value={formData.filiere} onChange={e => setFormData(prev => ({...prev, filiere: e.target.value}))} className="w-full p-3 bg-bg-primary rounded-lg mt-4">
+                                            <option value="">{t.filierePlaceholder}</option>
+                                            {currentFilieres.map(f => <option key={f} value={f}>{f}</option>)}
+                                        </select>
+                                    )}
 
-                                        {formData.cycle === 'Ingenieur' && (
-                                            <div className="flex justify-center gap-2 my-4">
-                                                {t.years.map(year => (
-                                                    <button type="button" key={year} onClick={() => handleYearSelect(year)} className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-300 ${formData.year === year ? 'bg-primary text-white' : 'bg-bg-primary hover:bg-bg-primary/60'}`}>{year}</button>
-                                                ))}
+                                    <div className="flex justify-between mt-6">
+                                        <button type="button" onClick={() => setStep(1)} className="text-sm font-semibold text-text-light">Précédent</button>
+                                        <button type="button" onClick={() => setStep(3)} disabled={!isStep2Complete} className="text-sm font-semibold text-text-dark disabled:opacity-50">Suivant</button>
+                                    </div>
+                                </div>
+                            )}
+                            {/* Step 3 */}
+                            {step === 3 && (
+                                    <div>
+                                    <h3 className="text-xl font-bold text-center mb-6">{t.step3Title}</h3>
+                                    <div className="space-y-4">
+                                        {/* Attribut name="sujet" ajouté pour Formspark */}
+                                        <input 
+                                            type="text" 
+                                            name="sujet" 
+                                            placeholder={t.subjectPlaceholder} 
+                                            value={formData.subject} 
+                                            onChange={e => setFormData(prev => ({...prev, subject: e.target.value}))} 
+                                            required 
+                                            className="w-full p-3 bg-bg-primary rounded-lg"
+                                        />
+                                        {/* Attribut name="message" ajouté pour Formspark */}
+                                        <textarea 
+                                            name="message" 
+                                            placeholder={t.messagePlaceholder} 
+                                            value={formData.message} 
+                                            onChange={e => setFormData(prev => ({...prev, message: e.target.value}))} 
+                                            required 
+                                            rows={4} 
+                                            className="w-full p-3 bg-bg-primary rounded-lg"
+                                        ></textarea>
+                                        <p className="text-xs text-text-light italic text-center mt-2">
+                                            (Pour l'instant, l'envoi de photos n'est pas supporté dans cette version rapide)
+                                        </p>
+                                    </div>
+                                    <div className="flex justify-between mt-6">
+                                        <button type="button" onClick={() => setStep(formData.category === 'Formation' ? 2 : 1)} className="text-sm font-semibold text-text-light">Précédent</button>
+                                        <button type="button" onClick={() => setStep(4)} disabled={!formData.subject || !formData.message} className="text-sm font-semibold text-text-dark disabled:opacity-50">Suivant</button>
+                                    </div>
+                                </div>
+                            )}
+                                {/* Step 4 */}
+                            {step === 4 && (
+                                    <div>
+                                    <h3 className="text-xl font-bold text-center mb-6">{t.step4Title}</h3>
+                                    <div className="space-y-4">
+                                        <label className="flex items-start p-4 bg-bg-primary rounded-lg cursor-pointer">
+                                            <input type="radio" name="notification_radio" value="anonymous" checked={formData.notification === 'anonymous'} onChange={e => setFormData(prev => ({...prev, notification: e.target.value}))} className="mt-1"/>
+                                            <div className="ltr:ml-3 rtl:mr-3">
+                                                <p className="font-semibold">{t.anonymousOption}</p>
+                                                <p className="text-xs text-text-light">{t.anonymousHelp}</p>
                                             </div>
-                                        )}
+                                        </label>
+                                        <label className="flex items-start p-4 bg-bg-primary rounded-lg cursor-pointer">
+                                            <input type="radio" name="notification_radio" value="email" checked={formData.notification === 'email'} onChange={e => setFormData(prev => ({...prev, notification: e.target.value}))} className="mt-1"/>
+                                            <div className="ltr:ml-3 rtl:mr-3 w-full">
+                                                <p className="font-semibold">{t.emailOption}</p>
+                                                {formData.notification === 'email' && (
+                                                    // Attribut name="email_etudiant" ajouté pour Formspark
+                                                    <input 
+                                                        type="email" 
+                                                        name="email_etudiant"
+                                                        placeholder={t.emailPlaceholder} 
+                                                        required 
+                                                        className="w-full p-2 mt-2 bg-card rounded-md border border-gray-200" 
+                                                        value={formData.email} 
+                                                        onChange={e => setFormData(prev => ({...prev, email: e.target.value}))}
+                                                    />
+                                                )}
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div className="flex justify-between mt-6 items-center">
+                                        <button type="button" onClick={() => setStep(3)} className="text-sm font-semibold text-text-light">Précédent</button>
                                         
-                                        {currentFilieres.length > 0 && (
-                                            <select value={formData.filiere} onChange={e => setFormData(prev => ({...prev, filiere: e.target.value}))} required className="w-full p-3 bg-bg-primary rounded-lg mt-4">
-                                                <option value="">{t.filierePlaceholder}</option>
-                                                {currentFilieres.map(f => <option key={f} value={f}>{f}</option>)}
-                                            </select>
-                                        )}
-
-                                        <div className="flex justify-between mt-6">
-                                            <button type="button" onClick={() => setStep(1)} className="text-sm font-semibold text-text-light">Précédent</button>
-                                            <button type="button" onClick={() => setStep(3)} disabled={!isStep2Complete} className="text-sm font-semibold text-text-dark disabled:opacity-50">Suivant</button>
-                                        </div>
+                                        {/* Bouton de soumission réel */}
+                                        <button type="submit" className="px-6 py-3 bg-accent text-white rounded-full font-bold hover:bg-opacity-90 transition-all duration-300 shadow-lg transform hover:scale-105">
+                                            {t.submitButton}
+                                        </button>
                                     </div>
-                                )}
-                                {/* Step 3 */}
-                                {step === 3 && (
-                                     <div>
-                                        <h3 className="text-xl font-bold text-center mb-6">{t.step3Title}</h3>
-                                        <div className="space-y-4">
-                                            <input type="text" placeholder={t.subjectPlaceholder} value={formData.subject} onChange={e => setFormData(prev => ({...prev, subject: e.target.value}))} required className="w-full p-3 bg-bg-primary rounded-lg"/>
-                                            <textarea placeholder={t.messagePlaceholder} value={formData.message} onChange={e => setFormData(prev => ({...prev, message: e.target.value}))} required rows={4} className="w-full p-3 bg-bg-primary rounded-lg"></textarea>
-                                            <button type="button" className="text-sm font-semibold text-primary">{t.attachPhoto}</button>
-                                        </div>
-                                        <div className="flex justify-between mt-6">
-                                            <button type="button" onClick={() => setStep(formData.category === 'Formation' ? 2 : 1)} className="text-sm font-semibold text-text-light">Précédent</button>
-                                            <button type="button" onClick={() => setStep(4)} disabled={!formData.subject || !formData.message} className="text-sm font-semibold text-text-dark disabled:opacity-50">Suivant</button>
-                                        </div>
-                                    </div>
-                                )}
-                                 {/* Step 4 */}
-                                {step === 4 && (
-                                     <div>
-                                        <h3 className="text-xl font-bold text-center mb-6">{t.step4Title}</h3>
-                                        <div className="space-y-4">
-                                            <label className="flex items-start p-4 bg-bg-primary rounded-lg cursor-pointer">
-                                                <input type="radio" name="notification" value="anonymous" checked={formData.notification === 'anonymous'} onChange={e => setFormData(prev => ({...prev, notification: e.target.value}))} className="mt-1"/>
-                                                <div className="ltr:ml-3 rtl:mr-3">
-                                                    <p className="font-semibold">{t.anonymousOption}</p>
-                                                    <p className="text-xs text-text-light">{t.anonymousHelp}</p>
-                                                </div>
-                                            </label>
-                                            <label className="flex items-start p-4 bg-bg-primary rounded-lg cursor-pointer">
-                                                <input type="radio" name="notification" value="email" checked={formData.notification === 'email'} onChange={e => setFormData(prev => ({...prev, notification: e.target.value}))} className="mt-1"/>
-                                                <div className="ltr:ml-3 rtl:mr-3">
-                                                    <p className="font-semibold">{t.emailOption}</p>
-                                                    {formData.notification === 'email' && <input type="email" placeholder={t.emailPlaceholder} required className="w-full p-2 mt-2 bg-card rounded-md" value={formData.email} onChange={e => setFormData(prev => ({...prev, email: e.target.value}))}/>}
-                                                </div>
-                                            </label>
-                                        </div>
-                                        <div className="flex justify-between mt-6 items-center">
-                                            <button type="button" onClick={() => setStep(3)} className="text-sm font-semibold text-text-light">Précédent</button>
-                                            <button type="submit" className="px-6 py-3 bg-accent text-white rounded-full font-bold hover:bg-opacity-90 transition-all duration-300">{t.submitButton}</button>
-                                        </div>
-                                    </div>
-                                )}
-                            </form>
-                        ) : (
-                            <div className="text-center">
-                                <span className="text-6xl">✅</span>
-                                <h2 className="text-2xl font-bold text-text-dark mt-4 mb-2">{t.successTitle}</h2>
-                                <p className="text-text-light">{t.successText}</p>
-                                <p className="my-3 text-xl font-mono font-bold bg-bg-primary p-3 rounded-lg inline-block">{trackingCode}</p>
-                                <p className="text-sm text-text-light">{t.successInfo}</p>
-                            </div>
-                        )}
+                                </div>
+                            )}
+                        </form>
                     </div>
                 </section>
-                
-                <section className="max-w-2xl mx-auto fade-in-up-section">
-                     <div className="bg-card p-6 sm:p-8 rounded-[20px] shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
-                        <h3 className="text-xl font-bold text-center mb-4">{t.trackerTitle}</h3>
-                        <div className="flex gap-2">
-                            <input type="text" placeholder={t.trackerPlaceholder} value={trackInput} onChange={e => setTrackInput(e.target.value)} className="flex-grow p-3 bg-bg-primary rounded-lg"/>
-                            <button onClick={handleTrack} className="px-6 bg-primary text-white rounded-lg font-semibold">{t.trackerButton}</button>
-                        </div>
-                        {trackedStatus && (
-                            <div className="mt-4 bg-bg-primary/50 p-4 rounded-lg">
-                                <p className="font-bold text-lg">{trackedStatus.status}</p>
-                                <p className="text-sm text-text-light">{trackedStatus.message}</p>
-                            </div>
-                        )}
-                     </div>
-                </section>
-
             </div>
         </div>
     );

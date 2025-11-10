@@ -212,14 +212,24 @@ const TaVoixPage: React.FC<{ language: Language }> = ({ language }) => {
                             <input type="hidden" name="filiere" value={formData.filiere} />
                             <input type="hidden" name="anonyme" value={formData.notification === 'anonymous' ? 'Oui' : 'Non'} />
                             
-                            {/* CORRECTION : Champs cachés pour Sujet et Message */}
-                            {/* Ces champs garantissent que les données sont envoyées même si l'étape 3 n'est plus affichée */}
-                            <input type="hidden" name="sujet" value={formData.subject} />
-                            <input type="hidden" name="message" value={formData.message} />
+                            {/* CONFIGURATION EMAIL */}
+                            {/* Personnalise le sujet de l'email reçu */}
+                            <input type="hidden" name="_email.subject" value={`[TaVoix] Nouvelle demande : ${formData.category} - ${formData.subject}`} />
+                            {/* Désactive la redirection intelligente qui peut parfois échouer, utilise la page par défaut de succès */}
                             
-                            {/* Configuration Formspark : Redirection après succès (Optionnel, sinon page par défaut) */}
-                            {/* <input type="hidden" name="_redirect" value="http://votre-site.com/merci" /> */}
-
+                            {/* 
+                                CHAMP MESSAGE & SUJET
+                                Utilisation de textarea caché pour le message pour préserver les sauts de ligne et éviter les bugs de longueur.
+                            */}
+                            <input type="hidden" name="sujet" value={formData.subject} />
+                            <textarea 
+                                name="message" 
+                                value={formData.message} 
+                                style={{ display: 'none' }} 
+                                readOnly 
+                                aria-hidden="true" 
+                            />
+                            
                             {/* Step 1 */}
                             {step === 1 && (
                                 <div>
@@ -267,7 +277,6 @@ const TaVoixPage: React.FC<{ language: Language }> = ({ language }) => {
                                     <div>
                                     <h3 className="text-xl font-bold text-center mb-6">{t.step3Title}</h3>
                                     <div className="space-y-4">
-                                        {/* Note: Attributs 'name' retirés ici pour éviter les doublons avec les champs cachés */}
                                         <input 
                                             type="text" 
                                             placeholder={t.subjectPlaceholder} 

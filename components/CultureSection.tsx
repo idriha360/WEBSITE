@@ -10,18 +10,18 @@ interface StepProps {
 }
 
 const ProcessStep: React.FC<StepProps> = ({ icon, title, description, isLast }) => (
-    <div className="flex-1 relative flex flex-col items-center">
+    <div className="flex-1 relative flex flex-col items-center z-10">
         <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 text-primary transition-transform duration-300 hover:scale-110 shadow-sm">
             {icon}
         </div>
         <h3 className="text-lg font-bold text-text-dark mb-2">{title}</h3>
-        <p className="text-sm text-text-light text-center leading-relaxed">
+        <p className="text-sm text-text-light text-center leading-relaxed max-w-xs">
             {description}
         </p>
         
         {/* Desktop Arrow */}
         {!isLast && (
-            <div className="hidden md:block absolute top-8 -right-1/2 transform -translate-x-1/2 text-primary/20 z-0">
+            <div className="hidden md:block absolute top-8 -right-1/2 transform -translate-x-1/2 text-primary/20 z-0 pointer-events-none">
                 <ArrowRightIcon className="w-8 h-8" />
             </div>
         )}
@@ -56,16 +56,16 @@ const CultureSection: React.FC = () => {
 
   return (
     <section className="bg-card p-8 rounded-[20px] shadow-[0_4px_12px_rgba(0,0,0,0.05)] fade-in-up-section">
-      <div className="text-center mb-10">
-          <h2 className="text-2xl font-bold text-text-dark mb-2">
+      <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-text-dark mb-3">
             On plante une nouvelle culture
           </h2>
-          <p className="text-text-light font-medium">
+          <p className="text-text-light font-medium text-lg">
             Voici le parcours de votre idée.
           </p>
       </div>
       
-      <div className="flex flex-col md:flex-row justify-between items-stretch md:items-start gap-4 md:gap-0 px-4">
+      <div className="flex flex-col md:flex-row justify-between items-stretch md:items-start gap-6 md:gap-0 px-4">
         {steps.map((step, index) => (
             <ProcessStep 
                 key={index} 

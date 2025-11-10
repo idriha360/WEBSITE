@@ -1,0 +1,5 @@
+{
+  "name": "AECHA Website",
+  "description": "A responsive website for AECHA, showcasing their mission for connected and sustainable agriculture, built with React and Tailwind CSS based on a provided design mockup.",
+  "requestFramePermissions": []
+}

@@ -212,6 +212,11 @@ const TaVoixPage: React.FC<{ language: Language }> = ({ language }) => {
                             <input type="hidden" name="filiere" value={formData.filiere} />
                             <input type="hidden" name="anonyme" value={formData.notification === 'anonymous' ? 'Oui' : 'Non'} />
                             
+                            {/* CORRECTION : Champs cachés pour Sujet et Message */}
+                            {/* Ces champs garantissent que les données sont envoyées même si l'étape 3 n'est plus affichée */}
+                            <input type="hidden" name="sujet" value={formData.subject} />
+                            <input type="hidden" name="message" value={formData.message} />
+                            
                             {/* Configuration Formspark : Redirection après succès (Optionnel, sinon page par défaut) */}
                             {/* <input type="hidden" name="_redirect" value="http://votre-site.com/merci" /> */}
 
@@ -262,19 +267,16 @@ const TaVoixPage: React.FC<{ language: Language }> = ({ language }) => {
                                     <div>
                                     <h3 className="text-xl font-bold text-center mb-6">{t.step3Title}</h3>
                                     <div className="space-y-4">
-                                        {/* Attribut name="sujet" ajouté pour Formspark */}
+                                        {/* Note: Attributs 'name' retirés ici pour éviter les doublons avec les champs cachés */}
                                         <input 
                                             type="text" 
-                                            name="sujet" 
                                             placeholder={t.subjectPlaceholder} 
                                             value={formData.subject} 
                                             onChange={e => setFormData(prev => ({...prev, subject: e.target.value}))} 
                                             required 
                                             className="w-full p-3 bg-bg-primary rounded-lg"
                                         />
-                                        {/* Attribut name="message" ajouté pour Formspark */}
                                         <textarea 
-                                            name="message" 
                                             placeholder={t.messagePlaceholder} 
                                             value={formData.message} 
                                             onChange={e => setFormData(prev => ({...prev, message: e.target.value}))} 

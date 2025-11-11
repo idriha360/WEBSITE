@@ -54,13 +54,13 @@ const themes = {
 };
 
 
-const HomePage = ({ navigate }: { navigate: NavigateFunction }) => (
+const HomePage = ({ navigate, language }: { navigate: NavigateFunction; language: Language }) => (
   <>
-    <Hero />
+    <Hero language={language} />
     <div className="p-4 sm:p-6 space-y-6">
-      <CultureSection />
-      <PillarsSection navigate={navigate} />
-      <TeamTeaserSection navigate={navigate} />
+      <CultureSection language={language} />
+      <PillarsSection navigate={navigate} language={language} />
+      <TeamTeaserSection navigate={navigate} language={language} />
     </div>
   </>
 );
@@ -116,10 +116,10 @@ const App: React.FC = () => {
   let ComponentToRender;
   switch (currentPage.split('?')[0]) {
     case '/equipe':
-      ComponentToRender = <TeamPage />;
+      ComponentToRender = <TeamPage language={language} />;
       break;
     case '/vision':
-      ComponentToRender = <VisionPage navigate={navigate} />;
+      ComponentToRender = <VisionPage navigate={navigate} language={language} />;
       break;
     case '/programme':
       ComponentToRender = <ProgramPage navigate={navigate} language={language} />;
@@ -128,7 +128,7 @@ const App: React.FC = () => {
       ComponentToRender = <TaVoixPage language={language} />;
       break;
     default:
-      ComponentToRender = <HomePage navigate={navigate} />;
+      ComponentToRender = <HomePage navigate={navigate} language={language} />;
   }
 
   return (

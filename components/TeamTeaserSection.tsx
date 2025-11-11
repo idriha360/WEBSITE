@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fullTeam } from '../data/team';
+import { Language } from '../App';
 
 const shuffleArray = (array: any[]) => {
   const newArr = array.slice();
@@ -41,20 +42,31 @@ const TeamMemberAvatar: React.FC<TeamMemberAvatarProps> = ({ imgSrc, name, role,
 
 interface TeamTeaserProps {
   navigate: (path: string) => void;
+  language: Language;
 }
 
-const TeamTeaserSection: React.FC<TeamTeaserProps> = ({ navigate }) => {
+const translations = {
+  fr: {
+    title: "Rencontrez ceux qui s'engagent",
+    button: "Voir l'équipe"
+  },
+  ar: {
+    title: "تعرف على الذين يلتزمون",
+    button: "شاهد الفريق"
+  }
+};
+
+
+const TeamTeaserSection: React.FC<TeamTeaserProps> = ({ navigate, language }) => {
   const [displayedTeam, setDisplayedTeam] = useState<any[]>([]);
   const [isAnimating, setIsAnimating] = useState(false);
+  const t = translations[language];
 
   useEffect(() => {
-    // Set initial team without animation
     setDisplayedTeam(shuffleArray(fullTeam).slice(0, 3));
 
     const interval = setInterval(() => {
       setIsAnimating(true);
-      // Wait for a staggered fade-out animation to finish before changing the team
-      // We increased the timeout to allow the staggered exit to complete visually
       setTimeout(() => {
         setDisplayedTeam(shuffleArray(fullTeam).slice(0, 3));
         setIsAnimating(false);
@@ -72,13 +84,15 @@ const TeamTeaserSection: React.FC<TeamTeaserProps> = ({ navigate }) => {
   return (
     <section className="py-8 fade-in-up-section">
       <h2 className="text-2xl font-bold text-center mb-8 text-text-dark">
-        Rencontrez ceux qui s'engagent
+        {t.title}
       </h2>
       <div className="flex justify-center items-center gap-8 md:gap-12 h-48">
         {displayedTeam.map((member, index) => (
           <TeamMemberAvatar
-            key={member.name + index} // Use index in key to force re-render on change
-            {...member}
+            key={member.name + index}
+            imgSrc={member.imgSrc}
+            name={member.name}
+            role={member.role[language]}
             className={isAnimating ? 'opacity-0 scale-75 translate-y-4' : 'opacity-100 scale-100 translate-y-0'}
             style={{ 
                 transitionDelay: `${index * 150}ms`,
@@ -92,7 +106,7 @@ const TeamTeaserSection: React.FC<TeamTeaserProps> = ({ navigate }) => {
           onClick={handleNavigate}
           className="inline-block px-8 py-3 bg-primary text-white rounded-full font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-md cursor-pointer"
         >
-          Voir l'équipe
+          {t.button}
         </a>
       </div>
     </section>

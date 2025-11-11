@@ -1,6 +1,25 @@
 import React from 'react';
+import { Language } from '../App';
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  language: Language;
+}
+
+const translations = {
+  fr: {
+    title: "Cultivant Ensemble l'Avenir de demain",
+    subtitle: "AECHA",
+    button: "Découvrir"
+  },
+  ar: {
+    title: "معًا نزرع مستقبل الغد",
+    subtitle: "جمعية طلبة المعهد",
+    button: "اكتشف"
+  }
+};
+
+const Hero: React.FC<HeroProps> = ({ language }) => {
+  const t = translations[language];
   return (
     <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center text-center text-white pt-20">
       <div className="absolute inset-0 bg-black/40 z-10"></div>
@@ -11,13 +30,13 @@ const Hero: React.FC = () => {
       />
       <div className="relative z-20 p-4 max-w-2xl mx-auto fade-in-up-section">
         <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
-          Cultivant Ensemble l'Avenir de demain
+          {t.title}
         </h1>
         <p className="mt-4 text-lg md:text-xl text-gray-200">
-          AECHA
+          {t.subtitle}
         </p>
         <button className="mt-8 px-8 py-3 bg-white/20 backdrop-blur-md border border-white/30 rounded-full font-semibold hover:bg-white/30 transition-all duration-300">
-          Découvrir
+          {t.button}
         </button>
       </div>
     </section>

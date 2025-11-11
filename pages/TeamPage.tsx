@@ -1,5 +1,19 @@
 import React from 'react';
 import { fullTeam } from '../data/team';
+import { Language } from '../App';
+
+interface TeamPageProps {
+  language: Language;
+}
+
+const translations = {
+  fr: {
+    title: "L'Équipe qui s'engage"
+  },
+  ar: {
+    title: "الفريق الملتزم"
+  }
+};
 
 const TeamMemberCard: React.FC<{ name: string; role: string; imgSrc: string; }> = ({ name, role, imgSrc }) => {
   return (
@@ -15,15 +29,16 @@ const TeamMemberCard: React.FC<{ name: string; role: string; imgSrc: string; }> 
   );
 };
 
-const TeamPage: React.FC = () => {
+const TeamPage: React.FC<TeamPageProps> = ({ language }) => {
+  const t = translations[language];
   return (
     <div className="container mx-auto px-4 sm:px-6 py-28">
       <h1 className="text-4xl md:text-5xl font-extrabold text-center text-text-dark mb-12 fade-in-up-section">
-        L'Équipe qui s'engage
+        {t.title}
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 fade-in-up-section">
         {fullTeam.map(member => (
-          <TeamMemberCard key={member.name} {...member} />
+          <TeamMemberCard key={member.name} name={member.name} imgSrc={member.imgSrc} role={member.role[language]} />
         ))}
       </div>
     </div>

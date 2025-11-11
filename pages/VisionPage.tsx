@@ -115,7 +115,7 @@ const VisionPage: React.FC<VisionPageProps> = ({ navigate, language }) => {
                 <h3 className="text-xl font-semibold text-center text-text-dark">{t.bureauTitle}</h3>
                 <p className="text-center text-md text-text-light mb-8">{t.bureauDesc}</p>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
-                    {bureau.map(member => <TeamMemberCard key={member.name} name={member.name} imgSrc={member.imgSrc} role={member.role[language]} quote={member.quote?.[language]} />)}
+                    {bureau.map(member => <TeamMemberCard key={member.name.fr} name={member.name[language]} imgSrc={member.imgSrc} role={member.role[language]} quote={member.quote?.[language]} />)}
                 </div>
             </div>
 
@@ -123,7 +123,7 @@ const VisionPage: React.FC<VisionPageProps> = ({ navigate, language }) => {
                 <h3 className="text-xl font-semibold text-center text-text-dark">{t.committeeTitle}</h3>
                 <p className="text-center text-md text-text-light mb-8">{t.committeeDesc}</p>
                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-                    {committees.map(member => <TeamMemberCard key={member.name} name={member.name} imgSrc={member.imgSrc} role={member.role[language]} quote={member.quote?.[language]} />)}
+                    {committees.map(member => <TeamMemberCard key={member.name.fr} name={member.name[language]} imgSrc={member.imgSrc} role={member.role[language]} quote={member.quote?.[language]} />)}
                 </div>
             </div>
         </section>

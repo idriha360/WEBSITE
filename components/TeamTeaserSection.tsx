@@ -89,9 +89,9 @@ const TeamTeaserSection: React.FC<TeamTeaserProps> = ({ navigate, language }) =>
       <div className="flex justify-center items-center gap-8 md:gap-12 h-48">
         {displayedTeam.map((member, index) => (
           <TeamMemberAvatar
-            key={member.name + index}
+            key={member.name.fr + index}
             imgSrc={member.imgSrc}
-            name={member.name}
+            name={member.name[language]}
             role={member.role[language]}
             className={isAnimating ? 'opacity-0 scale-75 translate-y-4' : 'opacity-100 scale-100 translate-y-0'}
             style={{ 

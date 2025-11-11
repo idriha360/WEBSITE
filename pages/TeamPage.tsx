@@ -38,7 +38,7 @@ const TeamPage: React.FC<TeamPageProps> = ({ language }) => {
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 fade-in-up-section">
         {fullTeam.map(member => (
-          <TeamMemberCard key={member.name} name={member.name} imgSrc={member.imgSrc} role={member.role[language]} />
+          <TeamMemberCard key={member.name.fr} name={member.name[language]} imgSrc={member.imgSrc} role={member.role[language]} />
         ))}
       </div>
     </div>

@@ -13,11 +13,13 @@ const translations = {
   fr: {
     vision: 'Vision',
     programme: 'Programme',
+    equipe: 'Équipe',
     taVoix: 'Ta Voix',
   },
   ar: {
     vision: 'الرؤية',
     programme: 'البرنامج',
+    equipe: 'الفريق',
     taVoix: 'صوتك',
   }
 };
@@ -63,7 +65,7 @@ const Header: React.FC<HeaderProps> = ({ navigate, currentPage, language, setLan
             className="flex items-center space-x-2" 
             aria-label="Retour à la page d'accueil"
           >
-            <img src="AECHA/logo.jpg" alt="AECHA Logo" className="h-16" />
+            <img src="AECHA/logo.jpg" alt="AECHA Logo" className="h-16 w-16 rounded-full object-cover" />
           </a>
           
           <div className="flex items-center">
@@ -71,6 +73,7 @@ const Header: React.FC<HeaderProps> = ({ navigate, currentPage, language, setLan
             <nav className="hidden md:flex items-center space-x-8 text-lg font-semibold text-text-dark">
                 <a href="/vision" onClick={(e) => handleNavClick(e, '/vision')} className={getLinkClass('/vision')}>{t.vision}</a>
                 <a href="/programme" onClick={(e) => handleNavClick(e, '/programme')} className={getLinkClass('/programme')}>{t.programme}</a>
+                <a href="/equipe" onClick={(e) => handleNavClick(e, '/equipe')} className={getLinkClass('/equipe')}>{t.equipe}</a>
                 <a href="/ta-voix" onClick={(e) => handleNavClick(e, '/ta-voix')} className={getLinkClass('/ta-voix')}>{t.taVoix}</a>
             </nav>
             <div className="hidden md:block w-px h-6 bg-gray-300 mx-6"></div>
@@ -113,6 +116,7 @@ const Header: React.FC<HeaderProps> = ({ navigate, currentPage, language, setLan
           <nav className="flex flex-col items-center justify-center h-full space-y-8 text-2xl font-semibold text-text-dark">
             <a href="/vision" onClick={(e) => handleNavClick(e, '/vision')} className={getLinkClass('/vision')}>{t.vision}</a>
             <a href="/programme" onClick={(e) => handleNavClick(e, '/programme')} className={getLinkClass('/programme')}>{t.programme}</a>
+            <a href="/equipe" onClick={(e) => handleNavClick(e, '/equipe')} className={getLinkClass('/equipe')}>{t.equipe}</a>
             <a href="/ta-voix" onClick={(e) => handleNavClick(e, '/ta-voix')} className={getLinkClass('/ta-voix')}>{t.taVoix}</a>
             <div className="pt-8 flex items-center space-x-4 text-lg font-bold">
               <button 

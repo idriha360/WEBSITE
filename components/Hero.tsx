@@ -5,7 +5,7 @@ const Hero: React.FC = () => {
     <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center text-center text-white pt-20">
       <div className="absolute inset-0 bg-black/40 z-10"></div>
       <img 
-        src="https://picsum.photos/seed/ricepaddy/1200/800" 
+        src="AECHA/CHA.jpg" 
         alt="L'agriculture connectée et durable" 
         className="absolute inset-0 w-full h-full object-cover"
       />

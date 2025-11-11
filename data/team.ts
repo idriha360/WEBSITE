@@ -2,14 +2,14 @@ export const fullTeam = [
   { 
     name: 'Mohamed DERKAOUI', 
     role: 'President', 
-    imgSrc: 'https://picsum.photos/seed/derkaoui/200',
+    imgSrc: 'AECHA/1.jpg',
     type: 'bureau',
     quote: "Transformer vos idées en projets concrets pour le campus."
   },
   { 
     name: 'Mohamed KHABABI', 
     role: 'Vice President', 
-    imgSrc: 'https://picsum.photos/seed/khababi/200',
+    imgSrc: 'AECHA/2.jpg',
     type: 'bureau',
     quote: "Assurer la continuité et le soutien de chaque initiative."
   },
@@ -37,19 +37,19 @@ export const fullTeam = [
   { 
     name: 'Youness AKYOD', 
     role: 'Responsable Formation', 
-    imgSrc: 'https://picsum.photos/seed/youness/200',
+    imgSrc: 'AECHA/6.jpg',
     type: 'committee',
   },
   { 
     name: 'Abdellilah AMKASSOU', 
     role: 'Responsable Forum', 
-    imgSrc: 'https://picsum.photos/seed/amkassou/200',
+    imgSrc: 'AECHA/7.jpg',
     type: 'committee',
   },
   { 
     name: 'Ali AJAGOUR', 
     role: 'Responsable Culturelle', 
-    imgSrc: 'https://picsum.photos/seed/ali/200',
+    imgSrc: 'AECHA/8.jpg',
     type: 'committee',
   },
   { 
@@ -61,7 +61,7 @@ export const fullTeam = [
   { 
     name: 'Zakaria ALMOU', 
     role: 'Responsable Buvette-Interna', 
-    imgSrc: 'https://picsum.photos/seed/zakaria/200',
+    imgSrc: 'AECHA/10.jpg',
     type: 'committee',
   },
   { 

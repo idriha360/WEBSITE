@@ -143,7 +143,7 @@ const App: React.FC = () => {
         {ComponentToRender}
       </main>
       <footer className="text-center p-4 text-text-light text-sm">
-        <p>&copy; 2024 AECHA. Tous droits réservés.</p>
+        <p>&copy; 2025 AECHA. Tous droits réservés.</p>
       </footer>
       <ThemeSwitcher theme={theme} setTheme={setTheme} />
     </div>

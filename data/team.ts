@@ -48,7 +48,7 @@ export const fullTeam = [
   },
   { 
     name: 'Ali AJAGOUR', 
-    role: 'Responsable Culturelle', 
+    role: 'Responsable Culturel', 
     imgSrc: 'AECHA/8.jpg',
     type: 'committee',
   },
@@ -60,7 +60,7 @@ export const fullTeam = [
   },
   { 
     name: 'Zakaria ALMOU', 
-    role: 'Responsable Buvette-Interna', 
+    role: 'Responsable Buvette-Internat', 
     imgSrc: 'AECHA/10.jpg',
     type: 'committee',
   },

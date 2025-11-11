@@ -1,13 +1,6 @@
 
 import React from 'react';
 
-export const LogoIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={className} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 20.39 43.14 17 41.67 14.16C41.21 15.22 40.5 16.14 39.58 16.89C35.8 19.74 30.15 19.9 26.2 17.29C25.29 16.63 24.58 15.8 24.1 14.82C24.07 14.75 24.04 14.69 24.01 14.63C23.23 12.63 22.88 10.48 23.02 8.35C23.28 4.72 26.24 4.04 27.65 4.01C26.46 4 25.25 4 24 4Z" fill="currentColor"/>
-    <path d="M31.29 6.22C30.6 6.57 30 7.07 29.54 7.69C26.83 11.64 27 17.29 29.84 21.07C30.59 22 31.51 22.71 32.57 23.17C32.64 23.2 32.7 23.23 32.76 23.26C34.76 24.04 36.91 24.39 39.04 24.25C42.67 24.01 43.35 20.97 43.38 19.56C43.35 12.78 37.95 6.42 31.29 6.22Z" fill="currentColor"/>
-  </svg>
-);
-
 export const BurgerMenuIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

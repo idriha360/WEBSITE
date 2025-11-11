@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { LogoIcon, BurgerMenuIcon, CloseIcon } from './Icons';
+import { BurgerMenuIcon, CloseIcon } from './Icons';
 import { Language } from '../App';
 
 interface HeaderProps {
@@ -63,8 +63,7 @@ const Header: React.FC<HeaderProps> = ({ navigate, currentPage, language, setLan
             className="flex items-center space-x-2" 
             aria-label="Retour à la page d'accueil"
           >
-            <LogoIcon className="h-8 w-8 text-text-dark" />
-            <span className="text-2xl font-bold text-text-dark">AECHA</span>
+            <img src="AECHA/logo.jpg" alt="AECHA Logo" className="h-16" />
           </a>
           
           <div className="flex items-center">

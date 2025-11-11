@@ -66,7 +66,7 @@ const ProcessStep: React.FC<StepProps> = ({ icon, title, description, isLast }) 
         </p>
         
         {!isLast && (
-            <div className="hidden md:block absolute top-8 transform text-primary/20 z-0 pointer-events-none ltr:-right-1/2 ltr:-translate-x-1/2 rtl:-left-1/2 rtl:translate-x-1/2">
+            <div className="hidden md:block absolute top-4 transform text-primary/20 z-0 pointer-events-none ltr:-right-1/2 ltr:-translate-x-1/2 rtl:-left-1/2 rtl:translate-x-1/2">
                 <ArrowRightIcon className="w-8 h-8 rtl:rotate-180" />
             </div>
         )}

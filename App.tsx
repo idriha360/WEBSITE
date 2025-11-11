@@ -56,7 +56,7 @@ const themes = {
 
 const HomePage = ({ navigate, language }: { navigate: NavigateFunction; language: Language }) => (
   <>
-    <Hero language={language} />
+    <Hero language={language} navigate={navigate} />
     <div className="p-4 sm:p-6 space-y-6">
       <CultureSection language={language} />
       <PillarsSection navigate={navigate} language={language} />

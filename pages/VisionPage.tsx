@@ -1,5 +1,5 @@
 import React from 'react';
-import { fullTeam, TeamMember } from '../data/team';
+import { fullTeam } from '../data/team';
 import { DocumentIcon, UsersIcon, YourVoiceIcon } from '../components/Icons';
 import { Language } from '../App';
 
